@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script type="text/javascript" src="/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function () {
+        var mHub = $.connection.messageHub;
+
+        mHub.client.broadcastMessage = function (name, message) {
+        };
+
+        $.connection.hub.start().done(function () {
+
+            $('#postOrderRed').click(function () {
+                mHub.server.send("CreateSphere", "Type1", "Red", "Active")
+            });
+
+            $('#postOrderBlack').click(function () {
+                mHub.server.send("CreateSphere", "Type2", "Black", "Active")
+            });
+
+            $('#postOrderBlue').click(function () {
+                mHub.server.send("CreateSphere", "Type3", "Blue", "Active")
+            });
+
+            $('#postOrderPurple').click(function () {
+                mHub.server.send("CreateSphere", "Type4", "Purple", "Active")
+            });
+
+            $('#postCompleteBlack').click(function () {
+                mHub.server.send("CreateSphere", "Type2", "Black", "Complete")
+            });
+
+            $('#postCompleteRed').click(function () {
+                mHub.server.send("CreateSphere", "Type1", "Red", "Complete")
+            });
+
+            $('#postCompleteBlue').click(function () {
+                mHub.server.send("CreateSphere", "Type3", "Blue", "Complete")
+            });
+
+            $('#postCompletePurple').click(function () {
+                mHub.server.send("CreateSphere", "Type4", "Purple", "Complete")
+            });
+        })
+    });
+</script>
+
+
+
+<h2>Index</h2>
+<form id="postDataForm" method="post">
+    <div id="button_holder">
+        <div>
+            <span>
+                <input type="button" id="postOrderBlack" class="unity_action_button" value="Post Black" />
+                <input type="button" id="postCompleteBlack" class="unity_action_button" value="Complete Black" />
+            </span>
+        </div>
+        <div>
+            <span>
+                <input type="button" id="postOrderRed" class="unity_action_button" value="Post Red" />
+                <input type="button" id="postCompleteRed" class="unity_action_button" value="Complete Red" />
+            </span>
+        </div>
+        <div>
+            <span>
+                <input type="button" id="postOrderBlue" class="unity_action_button" value="Post Blue" />
+                <input type="button" id="postCompleteBlue" class="unity_action_button" value="Complete Blue" />
+            </span>
+        </div>
+        <div>
+            <span>
+                <input type="button" id="postOrderPurple" class="unity_action_button" value="Post Purple" />
+                <input type="button" id="postCompletePurple" class="unity_action_button" value="Complete Purple" />
+            </span>
+        </div>
+    </div>
+</form>
+

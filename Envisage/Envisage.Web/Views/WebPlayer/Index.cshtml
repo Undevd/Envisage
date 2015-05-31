@@ -1,0 +1,133 @@
+﻿<script type='text/javascript' src='~/Scripts/UnityObject2.js'></script>
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script type="text/javascript" src="/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function () {
+        var mHub = $.connection.messageHub;
+
+        mHub.client.broadcastMessage = function (method, name, colour, state) {
+            sendUnityNotificationMessages(method, name, colour, state);
+        };
+
+        $.connection.hub.start().done(function () {
+            /*
+            * Place any code to be executed whenever a connection is established with the notification hub here
+            */
+        })
+    });
+</script>
+<script type="text/javascript">
+	var config = {
+		width: 920,
+		height: 550,
+		params: { enableDebugging:"0" }
+
+	};
+	var u = new UnityObject2(config);
+
+	jQuery(function() {
+
+		var $missingScreen = jQuery("#unityPlayer").find(".missing");
+		var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+		$missingScreen.hide();
+		$brokenScreen.hide();
+
+		u.observeProgress(function (progress) {
+			switch(progress.pluginStatus) {
+				case "broken":
+					$brokenScreen.find("a").click(function (e) {
+						e.stopPropagation();
+						e.preventDefault();
+						u.installPlugin();
+						return false;
+					});
+					$brokenScreen.show();
+				break;
+				case "missing":
+					$missingScreen.find("a").click(function (e) {
+						e.stopPropagation();
+						e.preventDefault();
+						u.installPlugin();
+						return false;
+					});
+					$missingScreen.show();
+				break;
+				case "installed":
+					$missingScreen.remove();
+				break;
+				case "first":
+				break;
+			}
+		});
+		u.initPlugin(jQuery("#unityPlayer")[0], "/Player/WebPlayer.unity3d");
+	});
+
+	function gameReady() {
+		/*
+        * Place any code to be executed when game is in ready state here
+        */
+	}
+
+	var active = {};
+	var complete = {};
+
+	function sendUnityNotificationMessages(method, name, colour, state) {
+
+		var unity = u.getUnity();
+		if (null == unity) {
+			setTimeout(function () { sendUnityNotificationMessages(method, name, colour, state); }, 200);
+			return;
+		}
+
+		var complex = new Object();
+		complex.Name = name;
+		complex.Colour = colour;
+		complex.State = state;
+
+		var notification = new Object();
+		notification.MessageName = method
+		notification.Callback = "HandleBrowserMessage.Response";
+		notification.Data = JSON.stringify(complex);
+
+		var json = JSON.stringify(notification);
+		unity.SendMessage("NotificationHub", "Publish", json);
+	}
+
+	function publish(json) {
+		var message = JSON.parse(json);
+		var func = hub[message.MessageName];
+		func(message.Data);
+	}
+
+	function notificationComplete(json) {
+        var notification = null;
+        if(typeof json == 'string' || json instanceof String) {
+            notification = JSON.parse(json);
+        }
+        else {
+            notification = json;
+        }
+	}
+
+	var hub = new Array();
+	hub["HandleBrowserMessage.Response"] = function (arg) { notificationComplete(arg) };
+</script>
+<p class="header"><span>Unity Web Player | </span>Envisage.Unity</p>
+<div class="content">
+    <div id="unityPlayer">
+        <div class="missing">
+            <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+                <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+            </a>
+        </div>
+        <div class="broken">
+            <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
+                <img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
+            </a>
+        </div>
+    </div>
+    <div id="SummarySection">
+
+    </div>
+</div>
+<p class="footer">&laquo; created with <a href="http://unity3d.com/unity/" title="Go to unity3d.com">Unity</a> &raquo;</p>

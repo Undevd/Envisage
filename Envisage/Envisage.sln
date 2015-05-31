@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envisage.Model", "Envisage.Model\Envisage.Model.csproj", "{A0215C7E-34EE-4254-AE89-87B97957E45F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envisage.Behaviour", "Envisage.Behaviour\Envisage.Behaviour.csproj", "{71F05219-EC94-4B1B-B140-A6454224A5FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envisage.Web", "Envisage.Web\Envisage.Web.csproj", "{F0FD3281-02A9-4C09-B20C-6DA0F68AF5E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0659C148-8810-479D-8249-1494B9B93718}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0215C7E-34EE-4254-AE89-87B97957E45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0215C7E-34EE-4254-AE89-87B97957E45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0215C7E-34EE-4254-AE89-87B97957E45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0215C7E-34EE-4254-AE89-87B97957E45F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F05219-EC94-4B1B-B140-A6454224A5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F05219-EC94-4B1B-B140-A6454224A5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F05219-EC94-4B1B-B140-A6454224A5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F05219-EC94-4B1B-B140-A6454224A5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0FD3281-02A9-4C09-B20C-6DA0F68AF5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0FD3281-02A9-4C09-B20C-6DA0F68AF5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0FD3281-02A9-4C09-B20C-6DA0F68AF5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0FD3281-02A9-4C09-B20C-6DA0F68AF5E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
